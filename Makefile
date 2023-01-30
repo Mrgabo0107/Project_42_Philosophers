@@ -13,7 +13,8 @@
 ### Compilation ###
 
 CC      = cc
-FLAGS  = -Wall -Wextra -Werror -pthread -g -fsanitize=thread
+FLAGS  = -Wall -Wextra -Werror -pthread -g
+# FLAGS  = -Wall -Wextra -Werror -pthread -g -fsanitize=thread
 ### Executable ###
 
 NAME   = philo

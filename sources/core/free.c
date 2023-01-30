@@ -63,7 +63,7 @@ int	free_forks_mtx_ret_one(t_dat  *dat, int last_succes)
     i = 0;
     while (i < last_succes)
     {
-       pthread_mutex_destroy(&dat->forks_mtx[i]);
+       pthread_mutex_destroy(dat->forks_mtx[i]);
        i++;
     }
 	free_forks_mtx(dat);
@@ -81,7 +81,7 @@ void free_forks_mtx(t_dat *dat)
 		{
 			if (dat->forks_mtx[i])
             {
-	            pthread_mutex_destroy(&dat->forks_mtx[i]);
+	            pthread_mutex_destroy(dat->forks_mtx[i]);
 				free(dat->forks_mtx[i]);
             }
 		}

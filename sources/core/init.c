@@ -46,13 +46,13 @@ static int set_philo(t_dat *dat, t_phil *ph, int i)
 	ph->index = i + 1;
 	ph->is_died = 0;
 	ph->is_eating = 0;
-	ph->is_slepping = 0;
+	ph->is_sleeping = 0;
 	ph->is_thinking = 0;
 	ph->has_l_fork = 0;
 	ph->has_r_fork = 0;
 	ph->current_time = 0;
 	ph->meals_taken = 0;
-	if (pthread_create(&ph->ph_thrd, NULL, &routine, (void *)dat))
+	if (pthread_create(&ph->ph_thrd, NULL, &routine, (void *)ph))
 		return (1);
 	return (0);
 }
@@ -69,7 +69,7 @@ static int	init_philos(t_dat  *dat)
 		dat->philos[i] = (t_phil *)ft_calloc(1, sizeof(t_phil));
 		if (!dat->philos[i])
 			return (free_philos_ret_one(dat));
-		if (set_philo(dat, dat->philos[i], i));
+		if (set_philo(dat, dat->philos[i], i))
 			return (free_philos_ret_one(dat));
 		i++;
 	}
@@ -100,15 +100,15 @@ static int	init_forks_mtx(t_dat *dat)
 	int	i;
 
 	i = 0;
-	dat->forks = (pthread_mutex_t **)ft_calloc(dat->data[0], sizeof(pthread_mutex_t *));
-	if (!dat->forks)
+	dat->forks_mtx = (pthread_mutex_t **)ft_calloc(dat->data[0], sizeof(pthread_mutex_t *));
+	if (!dat->forks_mtx)
 		return (1);
 	while (i < dat->data[0])
 	{
-		dat->forks[i] = (pthread_mutex_t *)ft_calloc(1, sizeof(pthread_mutex_t));
-		if (!dat->forks[i])
+		dat->forks_mtx[i] = (pthread_mutex_t *)ft_calloc(1, sizeof(pthread_mutex_t));
+		if (!dat->forks_mtx[i])
 			return (free_forks_mtx_ret_one(dat, i));
-		if (pthread_mutex_init(&dat->forks_mtx[i], NULL));
+		if (pthread_mutex_init(dat->forks_mtx[i], NULL))
 			return (free_forks_mtx_ret_one(dat, i));
 		i++;
 	}

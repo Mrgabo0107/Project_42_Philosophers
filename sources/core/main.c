@@ -21,14 +21,14 @@ static int	parse(int ac, char **ag, t_dat *dat)
 	return (0);
 }
 
-void	*routine(void *dat)
+void	*routine(void *ph)
 {
-	t_dat  *dat_r;
+	t_phil  *ph_r;
 
-	dat_r = (t_dat  *)dat;
-	pthread_mutex_lock(&(dat_r->print_mtx));
-	printf("relative time %ld\n", get_relative_time(dat_r->start_time));
-	pthread_mutex_unlock(&(dat_r->print_mtx));
+	ph_r = (t_phil  *)ph;
+	pthread_mutex_lock(&(ph_r->initial_data->print_mtx));
+	print_data_and_philo_set(ph);
+	pthread_mutex_unlock(&(ph_r->initial_data->print_mtx));
 	return (NULL);
 }
 
@@ -40,7 +40,7 @@ static int	join_philosophers(t_dat *dat)
 	i = 0;
 	while (i < dat->data[0])
 	{
-		if (pthread_join(dat->philos[i], NULL))
+		if (pthread_join(dat->philos[i]->ph_thrd, NULL))
 			return (1);
 		i++;
 	}
