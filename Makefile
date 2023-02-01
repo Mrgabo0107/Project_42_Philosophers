@@ -14,7 +14,7 @@
 
 CC      = cc
 FLAGS  = -Wall -Wextra -Werror -pthread -g
-# FLAGS  = -Wall -Wextra -Werror -pthread -g -fsanitize=thread
+# FLAGS  = -Wall -Wextra -Werror -pthread -g3 -fsanitize=thread
 ### Executable ###
 
 NAME   = philo
@@ -27,13 +27,21 @@ SRC_PATH  = sources/
 
 ### Source Files ###
 CORE_DIR	=	core/
-CORS		=	main.c utils.c init.c time.c free.c
+CORS		=	main.c utils.c time.c actions.c 
 
 ERR_DIR		=	error/
 ERR			=	errors.c debug.c
 
+FREE_DIR	=	free/
+FREE		=	free.c free_ret_one.c
+
+INIT_DIR	=	init/
+INIT		=	init1.c init2.c
+
 SOURCES		+=	$(addprefix	$(CORE_DIR),$(CORS))
 SOURCES		+=	$(addprefix	$(ERR_DIR),$(ERR))
+SOURCES		+=	$(addprefix	$(FREE_DIR),$(FREE))
+SOURCES		+=	$(addprefix	$(INIT_DIR),$(INIT))
 
 ### Objects ###
 
@@ -54,6 +62,8 @@ tmp:
 	@mkdir -p $(OBJ_PATH)
 	@mkdir -p $(OBJ_PATH)$(CORE_DIR)
 	@mkdir -p $(OBJ_PATH)$(ERR_DIR)
+	@mkdir -p $(OBJ_PATH)$(FREE_DIR)
+	@mkdir -p $(OBJ_PATH)$(INIT_DIR)
 
 $(NAME): $(OBJS)
 	$(CC) $(FLAGS) -o $@ $^

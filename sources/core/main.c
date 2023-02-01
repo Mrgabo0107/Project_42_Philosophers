@@ -23,15 +23,17 @@ static int	parse(int ac, char **ag, t_dat *dat)
 
 void	*routine(void *ph)
 {
-	t_phil  *ph_r;
+	t_phil	*ph_r;
 
-	ph_r = (t_phil  *)ph;
-	pthread_mutex_lock(&(ph_r->initial_data->print_mtx));
-	print_data_and_philo_set(ph);
-	pthread_mutex_unlock(&(ph_r->initial_data->print_mtx));
+	ph_r = (t_phil *)ph;
+	if ((ph_r->index % 2 && ph_r) == 0)
+		usleep(10000);
+	while (!check_stop(ph_r->initial_data))
+	{
+		
+	}
 	return (NULL);
 }
-
 
 static int	join_philosophers(t_dat *dat)
 {
@@ -40,19 +42,18 @@ static int	join_philosophers(t_dat *dat)
 	i = 0;
 	while (i < dat->data[0])
 	{
-		if (pthread_join(dat->philos[i]->ph_thrd, NULL))
+		if (pthread_join(dat->philos[i].ph_thrd, NULL))
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-
 int	main(int ac, char **ag)
 {
-	t_dat 	*dat;
+	t_dat	*dat;
 
-	dat = (t_dat  *)ft_calloc(1, sizeof(t_dat));
+	dat = (t_dat *)ft_calloc(1, sizeof(t_dat));
 	if (!dat)
 		return (1);
 	if (parse(ac, ag, dat))
