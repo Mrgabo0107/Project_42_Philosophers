@@ -13,7 +13,7 @@
 ### Compilation ###
 
 CC      = cc
-FLAGS  = -Wall -Wextra -Werror -pthread -g
+FLAGS  = -Wall -Wextra -Werror -pthread -g3
 # FLAGS  = -Wall -Wextra -Werror -pthread -g3 -fsanitize=thread
 ### Executable ###
 
@@ -30,7 +30,7 @@ CORE_DIR	=	core/
 CORS		=	main.c utils.c time.c actions.c 
 
 ERR_DIR		=	error/
-ERR			=	errors.c debug.c
+ERR			=	errors.c #debug.c
 
 FREE_DIR	=	free/
 FREE		=	free.c free_ret_one.c

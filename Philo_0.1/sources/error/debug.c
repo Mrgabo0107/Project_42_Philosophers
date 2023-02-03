@@ -32,7 +32,7 @@ void	print_data_and_philo_set(t_phil	*ph)
 	printf("----------------------------------\n");
 	printf("check data:\n");
 	printf("------\n");
-	print_data(ph->initial_data);
+	print_data(ph->i_dat);
 	printf("------\n");
 	printf("is died = %d\n", ph->is_died);
 	printf("is eating = %d\n", ph->is_eating);

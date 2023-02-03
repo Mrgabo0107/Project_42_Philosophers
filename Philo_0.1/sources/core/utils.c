@@ -69,3 +69,11 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	ft_bzero(p, nmemb * size);
 	return ((void *)p);
 }
+
+void	philo_message(t_phil *ph, char *str)
+{
+	pthread_mutex_lock(&ph->i_dat->print_mtx);
+	printf("%ld %d ", get_relative_time(ph->i_dat->start_time), ph->index);
+	printf("%s || philo %d has taken %ld meals\n", str, ph->index, ph->meals_taken);
+	pthread_mutex_unlock(&ph->i_dat->print_mtx);
+}

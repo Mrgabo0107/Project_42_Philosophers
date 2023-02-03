@@ -17,6 +17,9 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <unistd.h>
+# define RIGHT 0
+# define LEFT 1
 
 typedef struct s_phil	t_phil;
 
@@ -36,14 +39,12 @@ typedef struct s_dat
 
 typedef struct s_phil
 {
-	t_dat		*initial_data;
+	t_dat		*i_dat;
 	int			index;
-	int			is_died;
-	int			is_eating;
-	int			is_sleeping;
-	int			is_thinking;
+	int			has_r_fork;
+	int			has_l_fork;
 	long int	last_meal_time;
-	long long	meals_taken;
+	long int	meals_taken;
 	pthread_t	ph_thrd;
 }				t_phil;
 
@@ -65,6 +66,7 @@ int			ag_is_good_number(int ac, char **ag, t_dat *dat);
 void		*ft_calloc(size_t nmemb, size_t size);
 int			free_ret_one(t_dat *dat);
 int			free_ret_zero(t_dat *dat);
+void		philo_message(t_phil *ph, char *str);
 
 /*Errors*/
 int			error_1(void);
@@ -80,6 +82,10 @@ void		free_forks(t_dat *dat);
 int			free_forks_ret_one(t_dat *dat);
 void		free_forks_mtx(t_dat *dat);
 int			free_forks_mtx_ret_one(t_dat *dat);
+
+/*actions*/
+int			check_stop(t_dat *dat);
+int			philo_do_things(t_phil *ph);
 
 /*debug*/
 void		print_data(t_dat *dat);

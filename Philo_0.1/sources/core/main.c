@@ -26,11 +26,12 @@ void	*routine(void *ph)
 	t_phil	*ph_r;
 
 	ph_r = (t_phil *)ph;
-	if ((ph_r->index % 2 && ph_r) == 0)
+	if (ph_r->index % 2 == 0 && ph_r->meals_taken == 0)
 		usleep(10000);
-	while (!check_stop(ph_r->initial_data))
+	while (!check_stop(ph_r->i_dat))
 	{
-		
+		if (philo_do_things(ph_r))
+			break ;
 	}
 	return (NULL);
 }
